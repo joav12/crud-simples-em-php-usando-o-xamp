@@ -1,0 +1,12 @@
+.container{
+    padding: 20px;
+
+    .formulario, .listaClientes{
+        border: 1px solid black;
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    .formulario{ margin-bottom: 20px; }
+
+}
