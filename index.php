@@ -1,5 +1,6 @@
 <?php 
     include ("phps/conectaDB.php");  
+    include("phps/preencheDeleta.php");
 ?>
 
 <!DOCTYPE html>
@@ -20,29 +21,34 @@
     <form action="http://localhost/clientes/" method="post" class="formulario">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome:</label>
-            <input type="text" name="nome" id="nome" class="form-control">
+            <input type="text" name="nome" id="nome" <?php isset($nomeUpdate) ? print('value="' . $nomeUpdate .'"') : '' ?> class="form-control">
         </div>
 
         <div class="mb-3">
             <label for="endereco" class="form-label">Endereço:</label>
-            <input type="text" name="endereco" id="endereco" class="form-control">
+            <input type="text" name="endereco" id="endereco" <?php isset($enderecoUpdate) ? print('value="' . $enderecoUpdate .'"') : '' ?>  class="form-control">
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">E-mail:</label>
-            <input type="email" name="email" id="email" class="form-control">
+            <input type="email" name="email" id="email"  <?php isset($emailUpdate) ? print('value="' . $emailUpdate .'"') : '' ?> class="form-control">
         </div>
 
-        <div class="mb-3 btn-container">
-            <input type="submit" value="Enviar" class="btn btn-primary">
-        </div>
+        <?php if(isset($nomeUpdate)){ ?>
+            <input type="number" name="idUP" value='<?php print($idup) ?>' style='display: none'>
+
+            <div class="mb-3 btn-container">
+                <input type="submit"  id='reload' name='reload' value="salvar" class="btn btn-primary">
+            </div>
+        <?php } else{ ?>
+            <div class="mb-3 btn-container">
+                <input type="submit" value="Enviar" name='envia' class="btn btn-primary">
+            </div>
+        <?php } ?>     
     </form>
-    
-
-    <?php include ("phps/preencheDeletaDB.php");  ?>
 
         <div class="listaClientes">
-            <form action="">
+            <form action="http://localhost/clientes/" method='post'>
             <h1>Lista de clientes</h1>
     	    <table class="table">
                 <?php if ($dados->num_rows <= 0){ ?>
@@ -66,7 +72,7 @@
                                 "<td>". $cliente['NOME'] ."</td>".
                                 "<td>". $cliente['ENDERECO'] ."</td>".
                                 "<td>". $cliente['EMAIL'] ."</td>".
-                                "<td> <button id='" . $cliente['CLIENTE_ID'] . "' class='btn btn-danger delete'>Deletar Cliente</button> <button id='" . $cliente['CLIENTE_ID'] . "' class='btn btn-secondary update'>Editar Cliente</button>  </td>".
+                                "<td> <input type='submit' value='deletar " . $cliente['CLIENTE_ID'] . "' name='deleta' class='btn btn-danger'> <input type='submit' value='atualiza ". $cliente['CLIENTE_ID'] ."' name='atualiza' class='btn btn-secondary'> </td>".
                              "</tr>";                                
                         }}; ?>            
                     </tbody>
