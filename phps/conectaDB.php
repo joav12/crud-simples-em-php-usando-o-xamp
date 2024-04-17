@@ -11,8 +11,3 @@ if ($conexao -> connect_errno || mysqli_connect_errno()) {
 	echo "Failed to connect to MySQL: " . $conexao -> connect_error;
 	exit();
   }
-  else{
-	$sql = 'SELECT * from cliente';
-
-	$dados = $conexao -> query($sql);
-  }

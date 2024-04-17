@@ -1,6 +1,6 @@
 <?php 
-    include ("phps/conectaDB.php");  
-    include("phps/preencheDeleta.php");
+    include ("phps/conectaDB.php"); 
+    include("phps/validaLogin.php");
 ?>
 
 <!DOCTYPE html>
@@ -16,71 +16,23 @@
 </head>
 <body>
 <div class="container">
-    <h1>Cadastre o cliente </h1>
+    <h1>Faça login</h1>
 
     <form action="http://localhost/clientes/" method="post" class="formulario">
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" name="nome" id="nome" <?php isset($nomeUpdate) ? print('value="' . $nomeUpdate .'"') : '' ?> class="form-control">
-        </div>
+        <h1 style='color: red'><?php print($resul) ?></h1>
 
         <div class="mb-3">
-            <label for="endereco" class="form-label">Endereço:</label>
-            <input type="text" name="endereco" id="endereco" <?php isset($enderecoUpdate) ? print('value="' . $enderecoUpdate .'"') : '' ?>  class="form-control">
+            <label for="login" class="form-label">Login:</label>
+            <input type="text" name="login" id="login" class="form-control">
         </div>
 
         <div class="mb-3">
-            <label for="email" class="form-label">E-mail:</label>
-            <input type="email" name="email" id="email"  <?php isset($emailUpdate) ? print('value="' . $emailUpdate .'"') : '' ?> class="form-control">
+            <label for="senha" class="form-label">Senha:</label>
+            <input type="password" name="senha" id="senha"  class="form-control">
         </div>
 
-        <?php if(isset($nomeUpdate)){ ?>
-            <input type="number" name="idUP" value='<?php print($idup) ?>' style='display: none'>
-
-            <div class="mb-3 btn-container">
-                <input type="submit"  id='reload' name='reload' value="salvar" class="btn btn-primary">
-            </div>
-        <?php } else{ ?>
-            <div class="mb-3 btn-container">
-                <input type="submit" value="Enviar" name='envia' class="btn btn-primary">
-            </div>
-        <?php } ?>     
-    </form>
-
-        <div class="listaClientes">
-            <form action="http://localhost/clientes/" method='post'>
-            <h1>Lista de clientes</h1>
-    	    <table class="table">
-                <?php if ($dados->num_rows <= 0){ ?>
-                    <p>Não existem clientes informados para serem listadas.</p>              
-                
-                    <?php }else{ ?>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Endereco</th>
-                                <th>E-mail</th>
-                                <th>ações</th>
-                            </tr>
-                        </thead>
-                    <tbody>
-                        <?php foreach($dados as $cliente) { 
-                            echo 
-                             "<tr>".
-                                "<td>". $cliente['CLIENTE_ID'] ."</td>".
-                                "<td>". $cliente['NOME'] ."</td>".
-                                "<td>". $cliente['ENDERECO'] ."</td>".
-                                "<td>". $cliente['EMAIL'] ."</td>".
-                                "<td> <input type='submit' value='deletar " . $cliente['CLIENTE_ID'] . "' name='deleta' class='btn btn-danger'> <input type='submit' value='atualiza ". $cliente['CLIENTE_ID'] ."' name='atualiza' class='btn btn-secondary'> </td>".
-                             "</tr>";                                
-                        }}; ?>            
-                    </tbody>
-            </table>
-            </form>
-
-        </div>
-    </div>
+        <input type="submit" class='btn btn-primary' value="Entrar">
+    </form>   
 </div>
 </body>
 </html>
